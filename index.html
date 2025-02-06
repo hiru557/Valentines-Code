@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>3D Glowing Heart</title>
+ 
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+  
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #0a0a0a;
+      overflow: hidden;
+      perspective: 1000px;
+      transition: opacity 1s ease-out;
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration) ease-in-out infinite;
+    }
+
+    .heart-3d {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      transform-style: preserve-3d;
+      animation: rotateHeart 10s linear infinite;
+    }
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff1493;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #ff1493, 0 0 30px #ff1493, 0 0 45px #ff1493;
+      transform-style: preserve-3d;
+      animation: glow 2s ease-in-out infinite;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      color: white;
+      margin: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s;
+      text-align: center;
+      text-shadow: 0 0 20px #ff1493;
+      background: linear-gradient(45deg, #ff69b4, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGlow 2s ease-in-out infinite;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-yes {
+      background: linear-gradient(45deg, #ff4d88, #ff6b9d);
+      color: white;
+      box-shadow: 0 0 30px #ff4d8866;
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 50px #ff4d88;
+    }
+
+    .btn-no {
+      background: linear-gradient(45deg, #666666, #999999);
+      color: white;
+      box-shadow: 0 0 30px #66666666;
+      transition: all 0.2s ease-out;
+      position: relative;
+    }
+
+    .btn-no:hover {
+      animation: dodgeButton 0.5s infinite;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff69b4;
+      animation: confettiFall linear forwards;
+    }
+
+    .message-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 2em;
+      border-radius: 20px;
+      color: white;
+      text-align: center;
+      max-width: 80%;
+      display: none;
+      box-shadow: 0 0 50px #ff69b466;
+      border: 2px solid #ff69b4;
+      animation: messagePop 0.5s ease-out;
+    }
+
+    @keyframes dodgeButton {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(20px, -20px); }
+      50% { transform: translate(-20px, -20px); }
+      75% { transform: translate(20px, 20px); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    @keyframes rotateHeart {
+      0% { transform: rotateY(0deg) rotateX(0deg); }
+      100% { transform: rotateY(360deg) rotateX(360deg); }
+    }
+
+    @keyframes glow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    @keyframes textGlow {
+      0%, 100% { text-shadow: 0 0 20px #ff1493; }
+      50% { text-shadow: 0 0 40px #ff69b4; }
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    @keyframes messagePop {
+      0% { transform: translate(-50%, -50%) scale(0); }
+      80% { transform: translate(-50%, -50%) scale(1.1); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="heart-3d" id="heart-3d"></div>
+  <div class="text">Will you be my Valentine?</div>
+  <div class="buttons">
+    <button class="btn btn-yes">Absolutely Yes! 🌹</button>
+    <button class="btn btn-no">Maybe Later</button>
+  </div>
+  <div class="message-box">
+    <h2>You've Made My Day! 💖</h2>
+    <p>Your "Yes" lights up my world like thousands of stars ✨<br>
+    Let's make beautiful memories together! 🌸</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
